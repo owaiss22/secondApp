@@ -1,26 +1,64 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//Components
+import Login from './Components/Login';
+import Register from './Components/Register';
+import Home from './Components/Homepage';
+import Navbar from './Components/Navbar';
+
+class App extends React.Component {
+
+  state = {
+    showLogin: true,
+    showRegister: false,
+    showHome: false,
+
+    // usr: {}
+
+  }
+
+  renderRegister = () => {
+    this.setState({
+      showRegister: true,
+      showLogin: false
+    })
+  }
+
+  renderLogin = () =>{
+    this.setState({
+      showLogin: true,
+      showRegister: false,
+    })
+  }
+
+  renderHome = () => {
+    this.setState({
+      showHome: true,
+      showLogin: false
+    })
+  }
+
+  render() {
+
+    const { showHome, showLogin, showRegister } = this.state;
+
+    return (
+      <React.Fragment>
+        <Navbar/>
+        <div className="first-div">
+          {
+            showLogin && <Login reg={this.renderRegister} home={this.renderHome} />
+          }
+        </div>
+        {
+          showRegister && <Register login={this.renderLogin} />
+        }
+        {
+          showHome && <Home />
+        }
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
